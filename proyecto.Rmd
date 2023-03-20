@@ -1,0 +1,75 @@
+---
+title: "Proyecto Mineria de datos"
+author: "Javier Mombiela, Jose Hernandez, Pablo Gonzalez"
+date: "2023-03-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(cluster) #Para calcular la silueta
+library(e1071)#para cmeans
+library(mclust) #mixtures of gaussians
+library(fpc) #para hacer el plotcluster
+library(NbClust) #Para determinar el número de clusters óptimo
+library(factoextra) #Para hacer gráficos bonitos de clustering
+library(hopkins) #Para revisar si vale la pena hacer agrupamiento
+library(GGally) #Para hacer el conjunto de graficos
+library(FeatureImpCluster) #Para revisar la importancia de las variables en los grupos.
+library(pheatmap) #Para hacer mapa de calor
+library(dplyr)
+library(nortest)
+library(rpart)
+library(caret)
+library(tree)
+library(rpart.plot)
+library(randomForest)
+```
+
+# Proyecto mineria
+
+## Lectura de los datos
+```{r}
+datos_proyecto <- read.csv("data_set_completo.csv")
+```
+
+## 1 Resumen de los datos
+```{r}
+summary(datos_proyecto)
+```
+Como se peude visualizar en el resumen de datos existen variables que tienen un maximo de 99 pero esto en realidad un valor vacio ya que en el sitio web del INE mas especificamente en la parte de diccionario de variables que nos menciona lo antes descrito, por lo que hay que hacer un filtro al data frame que si existe un valor de 99 lo cambie como nulo para que estos datos no afecten en nuestros resultados.
+
+```{r}
+datos_proyecto$Libras <- ifelse(datos_proyecto$Libras == 99, NA, datos_proyecto$Libras)
+datos_proyecto$Onzas <- ifelse(datos_proyecto$Onzas == 99, NA, datos_proyecto$Onzas)
+datos_proyecto$Tohite <- ifelse(datos_proyecto$Tohite == 99, NA, datos_proyecto$Tohite)
+datos_proyecto$Tohim <- ifelse(datos_proyecto$Tohim == 99, NA, datos_proyecto$Tohim)
+datos_proyecto$Tohivi <- ifelse(datos_proyecto$Tohivi == 99, NA, datos_proyecto$Tohivi)
+
+
+
+```
+
+### Cuantas columnas y variables hay en el dataset
+```{r}
+dim(datos_proyecto)
+```
+
+
+
+## 2 Tipos de las variables en el dataset
+
+Depreg (Departamento de Registro) = Cualitativa  
+Mupreg (Municipio de Registro) = cualitativa  
+Mesreg (Mes de Registro) = Cualitativa  
+Añoreg (Año de Registro) = Cualitativa  
+Libras (Peso del bebe en libras) = Cuantitativa  
+Onzas (Peso del bebe en onzas) = Cuantitativa  
+Sexo (Sexo del bebe) = Cualitativa  
+Tipar (Tipo de parto) = Cualitativa  
+Tohite (Total de hijos tenidos ) = Cuantitativa  
+Tohim (Total de hijos muertos) = Cuantitativa   
+Tohivi (Total de hijos vivos) = Cuantitativa  
+
+
