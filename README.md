@@ -3,8 +3,8 @@
 Analisis exploratorio de conjuntos de datos de nacimientos en Guatemala 
 
 ## Integrantes
-- Roberto Rios
 - Pablo Gonzalez
+- Roberto Rios
 - Javier Mombiela
 - Jose Hernandez
 - Javier Valle
