@@ -1,6 +1,6 @@
 ---
 title: "Proyecto Mineria de datos"
-author: "Javier Mombiela, Jose Hernandez, Pablo Gonzalez"
+author: "Javier Mombiela, Jose Hernandez, Pablo Gonzalez, Roberto Rios"
 date: "2023-03-20"
 output: html_document
 ---
